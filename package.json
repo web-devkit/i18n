@@ -1,0 +1,34 @@
+{
+  "name": "@web-devkit/i18n",
+  "version": "0.0.1",
+  "description": "Custom web components to format values based on the browser's language.",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-devkit/i18n.git"
+  },
+  "keywords": [
+    "web",
+    "component",
+    "lit",
+    "i18n"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/web-devkit/i18n/issues"
+  },
+  "homepage": "https://github.com/web-devkit/i18n#readme",
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
