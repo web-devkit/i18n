@@ -9,9 +9,7 @@ export class Time extends LitElement {
 
     @property() format: "full" | "long" | "medium" | "short" = "full";
 
-    @property() relative: "long" | "short" | "narrow" | undefined = undefined;
-
-    @state() private _formatter?: Intl.DateTimeFormat | Intl.RelativeTimeFormat;
+    @state() private _formatter?: Intl.DateTimeFormat;
 
     override createRenderRoot() {
         return this; // no shadow dom
@@ -26,12 +24,10 @@ export class Time extends LitElement {
     override updated(_changedProperties: PropertyValues) {
         if (
             !_changedProperties.has("locale") &&
-            !_changedProperties.has("style")
+            !_changedProperties.has("format")
         ) {
             return;
         }
-
-
 
         this._formatter = new Intl.DateTimeFormat(this.locale, {
             timeStyle: this.format,
