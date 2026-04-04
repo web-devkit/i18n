@@ -16,9 +16,10 @@ export class Time extends LitElement {
     }
 
     override render() {
-        return (this.value && this._formatter)
-            ? this._formatter.format(new Date(this.value))
-            : nothing;
+        if (!this.value || !this._formatter) return nothing;
+        const date = new Date(this.value);
+        if (isNaN(date.getTime())) return nothing;
+        return this._formatter.format(date);
     }
 
     override updated(_changedProperties: PropertyValues) {

@@ -9,6 +9,8 @@ export class Currency extends LitElement {
 
     @property() currency?: string;
 
+    @property() display?: "symbol" | "narrowSymbol" | "code" | "name";
+
     @state() private _formatter?: Intl.NumberFormat;
 
     override createRenderRoot() {
@@ -16,22 +18,35 @@ export class Currency extends LitElement {
     }
 
     override render() {
-        return (this.value && this._formatter)
-            ? this._formatter.format(parseFloat(this.value))
-            : nothing;
+        if (!this.currency) {
+            console.warn("<i18n-currency>: missing required 'currency' attribute");
+            return nothing;
+        }
+        if (!this.value || !this._formatter) return nothing;
+        const num = parseFloat(this.value);
+        if (isNaN(num)) return nothing;
+        return this._formatter.format(num);
     }
 
     override updated(_changedProperties: PropertyValues) {
         if (
-            _changedProperties.has("locale") ||
-            _changedProperties.has("currency")
+            !_changedProperties.has("locale") &&
+            !_changedProperties.has("currency") &&
+            !_changedProperties.has("display")
         ) {
-            this._formatter = new Intl.NumberFormat(this.locale, {
-                style: "currency",
-                currency: this.currency || "",
-                minimumFractionDigits: 2,
-            });
+            return;
         }
+
+        if (!this.currency) {
+            this._formatter = undefined;
+            return;
+        }
+
+        this._formatter = new Intl.NumberFormat(this.locale, {
+            style: "currency",
+            currency: this.currency,
+            ...(this.display && { currencyDisplay: this.display }),
+        });
     }
 }
 
