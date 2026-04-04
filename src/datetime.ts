@@ -70,9 +70,15 @@ export class Datetime extends I18nBase {
             return nothing;
         }
 
-        if (!this.value) return nothing;
+        if (!this.value) {
+            this._clearTimer();
+            return nothing;
+        }
         const date = new Date(this.value);
-        if (isNaN(date.getTime())) return nothing;
+        if (isNaN(date.getTime())) {
+            this._clearTimer();
+            return nothing;
+        }
 
         if (this.relative) {
             const diffMs = date.getTime() - Date.now();
