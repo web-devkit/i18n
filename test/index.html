@@ -45,10 +45,6 @@
             <td><i18n-currency value="5000" currency="JPY" locale="ja-JP"></i18n-currency></td>
         </tr>
         <tr>
-            <td>no value (should be empty)</td>
-            <td><i18n-currency currency="USD"></i18n-currency></td>
-        </tr>
-        <tr>
             <td>value="1234.5" currency="USD" display="code"</td>
             <td><i18n-currency value="1234.5" currency="USD" display="code"></i18n-currency></td>
         </tr>
@@ -64,9 +60,13 @@
             <td>no currency (should be empty)</td>
             <td><i18n-currency value="1234.5"></i18n-currency></td>
         </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-currency currency="USD"></i18n-currency></td>
+        </tr>
     </table>
 
-    <h2>&lt;i18n-datetime&gt;</h2>
+    <h2>&lt;i18n-datetime&gt; — Absolute</h2>
     <table>
         <tr><th>Config</th><th>Output</th></tr>
         <tr>
@@ -86,10 +86,6 @@
             <td><i18n-datetime value="2026-04-04T14:30:00Z" date="short" time="short"></i18n-datetime></td>
         </tr>
         <tr>
-            <td>locale="de-DE" date="full" time="short"</td>
-            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="full" time="short" locale="de-DE"></i18n-datetime></td>
-        </tr>
-        <tr>
             <td>date="long" (date only)</td>
             <td><i18n-datetime value="2026-04-04T14:30:00Z" date="long"></i18n-datetime></td>
         </tr>
@@ -98,50 +94,70 @@
             <td><i18n-datetime value="2026-04-04T14:30:00Z" time="short"></i18n-datetime></td>
         </tr>
         <tr>
-            <td>no value (should be empty)</td>
-            <td><i18n-datetime date="full" time="full"></i18n-datetime></td>
+            <td>locale="de-DE" date="full" time="short"</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="full" time="short" locale="de-DE"></i18n-datetime></td>
         </tr>
         <tr>
             <td>invalid value (should be empty)</td>
             <td><i18n-datetime value="not-a-date" date="full"></i18n-datetime></td>
         </tr>
         <tr>
-            <td>no date/time (should be empty)</td>
+            <td>no date/time/relative (should be empty)</td>
             <td><i18n-datetime value="2026-04-04T14:30:00Z"></i18n-datetime></td>
-        </tr>
-    </table>
-
-    <h2>&lt;i18n-time&gt;</h2>
-    <table>
-        <tr><th>Config</th><th>Output</th></tr>
-        <tr>
-            <td>format="full"</td>
-            <td><i18n-time value="2026-04-04T14:30:00Z" format="full"></i18n-time></td>
-        </tr>
-        <tr>
-            <td>format="long"</td>
-            <td><i18n-time value="2026-04-04T14:30:00Z" format="long"></i18n-time></td>
-        </tr>
-        <tr>
-            <td>format="medium"</td>
-            <td><i18n-time value="2026-04-04T14:30:00Z" format="medium"></i18n-time></td>
-        </tr>
-        <tr>
-            <td>format="short"</td>
-            <td><i18n-time value="2026-04-04T14:30:00Z" format="short"></i18n-time></td>
-        </tr>
-        <tr>
-            <td>format="short" locale="ja-JP"</td>
-            <td><i18n-time value="2026-04-04T14:30:00Z" format="short" locale="ja-JP"></i18n-time></td>
-        </tr>
-        <tr>
-            <td>invalid value (should be empty)</td>
-            <td><i18n-time value="not-a-date" format="full"></i18n-time></td>
         </tr>
         <tr>
             <td>no value (should be empty)</td>
-            <td><i18n-time format="full"></i18n-time></td>
+            <td><i18n-datetime date="full" time="full"></i18n-datetime></td>
         </tr>
     </table>
+
+    <h2>&lt;i18n-datetime&gt; — Relative (auto-updates)</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>relative="long" (10 sec ago — shows "now")</td>
+            <td><i18n-datetime id="rel-10s" relative="long"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>relative="long" seconds (10 sec ago — watch it tick!)</td>
+            <td><i18n-datetime id="rel-10s-sec" relative="long" seconds></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>relative="long" (5 min ago)</td>
+            <td><i18n-datetime id="rel-5m" relative="long"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>relative="short" (2 hours ago)</td>
+            <td><i18n-datetime id="rel-2h" relative="short"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>relative="narrow" (3 days ago)</td>
+            <td><i18n-datetime id="rel-3d" relative="narrow"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>relative="long" (in 10 minutes)</td>
+            <td><i18n-datetime id="rel-future" relative="long"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>relative="long" (45 days ago, threshold=30, date="medium")</td>
+            <td><i18n-datetime id="rel-threshold" relative="long" threshold="30" date="medium"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>relative="long" locale="de-DE" (1 hour ago)</td>
+            <td><i18n-datetime id="rel-de" relative="long" locale="de-DE"></i18n-datetime></td>
+        </tr>
+    </table>
+
+    <script type="module">
+        const now = Date.now();
+        document.getElementById("rel-10s").value = new Date(now - 10 * 1000).toISOString();
+        document.getElementById("rel-10s-sec").value = new Date(now - 10 * 1000).toISOString();
+        document.getElementById("rel-5m").value = new Date(now - 5 * 60 * 1000).toISOString();
+        document.getElementById("rel-2h").value = new Date(now - 2 * 60 * 60 * 1000).toISOString();
+        document.getElementById("rel-3d").value = new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString();
+        document.getElementById("rel-future").value = new Date(now + 10 * 60 * 1000).toISOString();
+        document.getElementById("rel-threshold").value = new Date(now - 45 * 24 * 60 * 60 * 1000).toISOString();
+        document.getElementById("rel-de").value = new Date(now - 60 * 60 * 1000).toISOString();
+    </script>
 </body>
 </html>
