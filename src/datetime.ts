@@ -23,6 +23,7 @@ export class Datetime extends I18nBase {
 
     override updated(_changedProperties: PropertyValues) {
         if (
+            !_changedProperties.has("locale") &&
             !_changedProperties.has("_resolvedLocale") &&
             !_changedProperties.has("date") &&
             !_changedProperties.has("time")
