@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@web-devkit/i18n — Test</title>
+    <script type="importmap">
+    {
+        "imports": {
+            "lit": "https://esm.sh/lit@3",
+            "lit/": "https://esm.sh/lit@3/"
+        }
+    }
+    </script>
+    <script type="module" src="./dist/index.js"></script>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; }
+        h1 { font-size: 1.4rem; }
+        h2 { font-size: 1.1rem; margin-top: 2rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: .5rem; }
+        th, td { text-align: left; padding: .4rem .6rem; border: 1px solid #ddd; }
+        th { background: #f5f5f5; }
+    </style>
+</head>
+<body>
+    <h1>@web-devkit/i18n — Component Test</h1>
+
+    <h2>&lt;i18n-currency&gt;</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="1234.5" currency="USD"</td>
+            <td><i18n-currency value="1234.5" currency="USD"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>value="1234.5" currency="EUR"</td>
+            <td><i18n-currency value="1234.5" currency="EUR"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>value="99.9" currency="GBP" locale="en-GB"</td>
+            <td><i18n-currency value="99.9" currency="GBP" locale="en-GB"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>value="5000" currency="JPY" locale="ja-JP"</td>
+            <td><i18n-currency value="5000" currency="JPY" locale="ja-JP"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-currency currency="USD"></i18n-currency></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-datetime&gt;</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>date="full" time="full"</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="full" time="full"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>date="long" time="short"</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="long" time="short"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>date="medium" time="medium"</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="medium" time="medium"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>date="short" time="short"</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="short" time="short"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>locale="de-DE" date="full" time="short"</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="full" time="short" locale="de-DE"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-datetime date="full" time="full"></i18n-datetime></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-time&gt;</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>format="full"</td>
+            <td><i18n-time value="2026-04-04T14:30:00Z" format="full"></i18n-time></td>
+        </tr>
+        <tr>
+            <td>format="long"</td>
+            <td><i18n-time value="2026-04-04T14:30:00Z" format="long"></i18n-time></td>
+        </tr>
+        <tr>
+            <td>format="medium"</td>
+            <td><i18n-time value="2026-04-04T14:30:00Z" format="medium"></i18n-time></td>
+        </tr>
+        <tr>
+            <td>format="short"</td>
+            <td><i18n-time value="2026-04-04T14:30:00Z" format="short"></i18n-time></td>
+        </tr>
+        <tr>
+            <td>format="short" locale="ja-JP"</td>
+            <td><i18n-time value="2026-04-04T14:30:00Z" format="short" locale="ja-JP"></i18n-time></td>
+        </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-time format="full"></i18n-time></td>
+        </tr>
+    </table>
+</body>
+</html>
