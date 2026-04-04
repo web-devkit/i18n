@@ -32,7 +32,7 @@ export class Datetime extends LitElement {
             return;
         }
 
-        this._formatter = Intl.DateTimeFormat(this.locale, {
+        this._formatter = new Intl.DateTimeFormat(this.locale, {
             dateStyle: this.date,
             timeStyle: this.time,
         });
