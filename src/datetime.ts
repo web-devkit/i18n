@@ -1,37 +1,14 @@
-import { LitElement, nothing, PropertyValues } from "lit";
+import { nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { onLocaleChange, resolveLocale } from "./locale.js";
+import { I18nBase } from "./base.js";
 
 @customElement("i18n-datetime")
-export class Datetime extends LitElement {
-    @property() value?: string;
-
-    @property() locale?: string;
-
+export class Datetime extends I18nBase {
     @property() date?: "full" | "long" | "medium" | "short";
 
     @property() time?: "full" | "long" | "medium" | "short";
 
     @state() private _formatter?: Intl.DateTimeFormat;
-
-    private _unsubscribe?: () => void;
-
-    override createRenderRoot() {
-        return this; // no shadow dom
-    }
-
-    override connectedCallback() {
-        super.connectedCallback();
-        if (!this.locale) {
-            this._unsubscribe = onLocaleChange(() => this._buildFormatter());
-        }
-    }
-
-    override disconnectedCallback() {
-        super.disconnectedCallback();
-        this._unsubscribe?.();
-        this._unsubscribe = undefined;
-    }
 
     override render() {
         if (!this.date && !this.time) {
@@ -45,32 +22,22 @@ export class Datetime extends LitElement {
     }
 
     override updated(_changedProperties: PropertyValues) {
-        if (_changedProperties.has("locale")) {
-            this._unsubscribe?.();
-            this._unsubscribe = undefined;
-            if (!this.locale) {
-                this._unsubscribe = onLocaleChange(() => this._buildFormatter());
-            }
-        }
+        super.updated(_changedProperties);
 
         if (
-            !_changedProperties.has("locale") &&
+            !_changedProperties.has("_resolvedLocale") &&
             !_changedProperties.has("date") &&
             !_changedProperties.has("time")
         ) {
             return;
         }
 
-        this._buildFormatter();
-    }
-
-    private _buildFormatter() {
         if (!this.date && !this.time) {
             this._formatter = undefined;
             return;
         }
 
-        this._formatter = new Intl.DateTimeFormat(resolveLocale(this.locale), {
+        this._formatter = new Intl.DateTimeFormat(this._resolvedLocale, {
             ...(this.date && { dateStyle: this.date }),
             ...(this.time && { timeStyle: this.time }),
         });
