@@ -48,6 +48,22 @@
             <td>no value (should be empty)</td>
             <td><i18n-currency currency="USD"></i18n-currency></td>
         </tr>
+        <tr>
+            <td>value="1234.5" currency="USD" display="code"</td>
+            <td><i18n-currency value="1234.5" currency="USD" display="code"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>value="1234.5" currency="USD" display="name"</td>
+            <td><i18n-currency value="1234.5" currency="USD" display="name"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>invalid value (should be empty)</td>
+            <td><i18n-currency value="abc" currency="USD"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>no currency (should be empty)</td>
+            <td><i18n-currency value="1234.5"></i18n-currency></td>
+        </tr>
     </table>
 
     <h2>&lt;i18n-datetime&gt;</h2>
@@ -74,8 +90,24 @@
             <td><i18n-datetime value="2026-04-04T14:30:00Z" date="full" time="short" locale="de-DE"></i18n-datetime></td>
         </tr>
         <tr>
+            <td>date="long" (date only)</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" date="long"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>time="short" (time only)</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z" time="short"></i18n-datetime></td>
+        </tr>
+        <tr>
             <td>no value (should be empty)</td>
             <td><i18n-datetime date="full" time="full"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>invalid value (should be empty)</td>
+            <td><i18n-datetime value="not-a-date" date="full"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>no date/time (should be empty)</td>
+            <td><i18n-datetime value="2026-04-04T14:30:00Z"></i18n-datetime></td>
         </tr>
     </table>
 
@@ -101,6 +133,10 @@
         <tr>
             <td>format="short" locale="ja-JP"</td>
             <td><i18n-time value="2026-04-04T14:30:00Z" format="short" locale="ja-JP"></i18n-time></td>
+        </tr>
+        <tr>
+            <td>invalid value (should be empty)</td>
+            <td><i18n-time value="not-a-date" format="full"></i18n-time></td>
         </tr>
         <tr>
             <td>no value (should be empty)</td>

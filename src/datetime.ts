@@ -7,9 +7,9 @@ export class Datetime extends LitElement {
 
     @property() locale?: string;
 
-    @property() date: "full" | "long" | "medium" | "short"  = "full";
+    @property() date?: "full" | "long" | "medium" | "short";
 
-    @property() time: "full" | "long" | "medium" | "short" = "full";
+    @property() time?: "full" | "long" | "medium" | "short";
 
     @state() private _formatter?: Intl.DateTimeFormat;
 
@@ -18,9 +18,14 @@ export class Datetime extends LitElement {
     }
 
     override render() {
-        return (this.value && this._formatter)
-            ? this._formatter.format(new Date(this.value))
-            : nothing;
+        if (!this.date && !this.time) {
+            console.warn("<i18n-datetime>: at least one of 'date' or 'time' attributes is required");
+            return nothing;
+        }
+        if (!this.value || !this._formatter) return nothing;
+        const date = new Date(this.value);
+        if (isNaN(date.getTime())) return nothing;
+        return this._formatter.format(date);
     }
 
     override updated(_changedProperties: PropertyValues) {
@@ -32,9 +37,14 @@ export class Datetime extends LitElement {
             return;
         }
 
+        if (!this.date && !this.time) {
+            this._formatter = undefined;
+            return;
+        }
+
         this._formatter = new Intl.DateTimeFormat(this.locale, {
-            dateStyle: this.date,
-            timeStyle: this.time,
+            ...(this.date && { dateStyle: this.date }),
+            ...(this.time && { timeStyle: this.time }),
         });
     }
 }
