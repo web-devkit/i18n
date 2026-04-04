@@ -1,5 +1,6 @@
 import { LitElement, nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { onLocaleChange, resolveLocale } from "./locale.js";
 
 @customElement("i18n-time")
 export class Time extends LitElement {
@@ -11,8 +12,23 @@ export class Time extends LitElement {
 
     @state() private _formatter?: Intl.DateTimeFormat;
 
+    private _unsubscribe?: () => void;
+
     override createRenderRoot() {
         return this; // no shadow dom
+    }
+
+    override connectedCallback() {
+        super.connectedCallback();
+        if (!this.locale) {
+            this._unsubscribe = onLocaleChange(() => this._buildFormatter());
+        }
+    }
+
+    override disconnectedCallback() {
+        super.disconnectedCallback();
+        this._unsubscribe?.();
+        this._unsubscribe = undefined;
     }
 
     override render() {
@@ -23,6 +39,14 @@ export class Time extends LitElement {
     }
 
     override updated(_changedProperties: PropertyValues) {
+        if (_changedProperties.has("locale")) {
+            this._unsubscribe?.();
+            this._unsubscribe = undefined;
+            if (!this.locale) {
+                this._unsubscribe = onLocaleChange(() => this._buildFormatter());
+            }
+        }
+
         if (
             !_changedProperties.has("locale") &&
             !_changedProperties.has("format")
@@ -30,7 +54,11 @@ export class Time extends LitElement {
             return;
         }
 
-        this._formatter = new Intl.DateTimeFormat(this.locale, {
+        this._buildFormatter();
+    }
+
+    private _buildFormatter() {
+        this._formatter = new Intl.DateTimeFormat(resolveLocale(this.locale), {
             timeStyle: this.format,
         });
     }
