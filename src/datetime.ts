@@ -76,14 +76,13 @@ export class Datetime extends I18nBase {
 
         if (this.relative) {
             const diffMs = date.getTime() - Date.now();
+            this._scheduleUpdate(diffMs);
 
             if (this.threshold !== undefined && Math.abs(diffMs) > this.threshold * DAY) {
                 return this._formatter
                     ? this._formatter.format(date)
                     : nothing;
             }
-
-            this._scheduleUpdate(diffMs);
 
             if (!this._relativeFormatter) return nothing;
             const [value, unit] = bestRelativeUnit(diffMs, this.seconds);
