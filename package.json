@@ -24,7 +24,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "serve": "bun test/serve.ts"
   },
   "dependencies": {
     "lit": "^3.3.2"
