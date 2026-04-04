@@ -1,21 +1,14 @@
-import { LitElement, nothing, PropertyValues } from "lit";
+import { nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { I18nBase } from "./base.js";
 
 @customElement("i18n-datetime")
-export class Datetime extends LitElement {
-    @property() value?: string;
-
-    @property() locale?: string;
-
+export class Datetime extends I18nBase {
     @property() date?: "full" | "long" | "medium" | "short";
 
     @property() time?: "full" | "long" | "medium" | "short";
 
     @state() private _formatter?: Intl.DateTimeFormat;
-
-    override createRenderRoot() {
-        return this; // no shadow dom
-    }
 
     override render() {
         if (!this.date && !this.time) {
@@ -31,6 +24,7 @@ export class Datetime extends LitElement {
     override updated(_changedProperties: PropertyValues) {
         if (
             !_changedProperties.has("locale") &&
+            !_changedProperties.has("_resolvedLocale") &&
             !_changedProperties.has("date") &&
             !_changedProperties.has("time")
         ) {
@@ -42,7 +36,7 @@ export class Datetime extends LitElement {
             return;
         }
 
-        this._formatter = new Intl.DateTimeFormat(this.locale, {
+        this._formatter = new Intl.DateTimeFormat(this._resolvedLocale, {
             ...(this.date && { dateStyle: this.date }),
             ...(this.time && { timeStyle: this.time }),
         });

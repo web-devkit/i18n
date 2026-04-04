@@ -1,21 +1,14 @@
-import { LitElement, nothing, PropertyValues } from "lit";
+import { nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
+import { I18nBase } from "./base.js";
 
 @customElement("i18n-currency")
-export class Currency extends LitElement {
-    @property() value?: string;
-
-    @property() locale?: string;
-
+export class Currency extends I18nBase {
     @property() currency?: string;
 
     @property() display?: "symbol" | "narrowSymbol" | "code" | "name";
 
     @state() private _formatter?: Intl.NumberFormat;
-
-    override createRenderRoot() {
-        return this;
-    }
 
     override render() {
         if (!this.currency) {
@@ -31,6 +24,7 @@ export class Currency extends LitElement {
     override updated(_changedProperties: PropertyValues) {
         if (
             !_changedProperties.has("locale") &&
+            !_changedProperties.has("_resolvedLocale") &&
             !_changedProperties.has("currency") &&
             !_changedProperties.has("display")
         ) {
@@ -42,7 +36,7 @@ export class Currency extends LitElement {
             return;
         }
 
-        this._formatter = new Intl.NumberFormat(this.locale, {
+        this._formatter = new Intl.NumberFormat(this._resolvedLocale, {
             style: "currency",
             currency: this.currency,
             ...(this.display && { currencyDisplay: this.display }),
