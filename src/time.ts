@@ -16,8 +16,6 @@ export class Time extends I18nBase {
     }
 
     override updated(_changedProperties: PropertyValues) {
-        super.updated(_changedProperties);
-
         if (
             !_changedProperties.has("_resolvedLocale") &&
             !_changedProperties.has("format")

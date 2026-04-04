@@ -29,7 +29,7 @@ export abstract class I18nBase extends LitElement {
         this._unsubscribe = undefined;
     }
 
-    override updated(_changedProperties: PropertyValues) {
+    override willUpdate(_changedProperties: PropertyValues) {
         if (_changedProperties.has("locale")) {
             this._unsubscribe?.();
             this._unsubscribe = undefined;
