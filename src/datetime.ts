@@ -85,9 +85,11 @@ export class Datetime extends I18nBase {
             this._scheduleUpdate(diffMs);
 
             if (this.threshold !== undefined && Math.abs(diffMs) > this.threshold * DAY) {
-                return this._formatter
-                    ? this._formatter.format(date)
-                    : nothing;
+                if (!this._formatter) {
+                    console.warn("<i18n-datetime>: 'threshold' requires 'date' or 'time' for absolute fallback");
+                    return nothing;
+                }
+                return this._formatter.format(date);
             }
 
             if (!this._relativeFormatter) return nothing;
