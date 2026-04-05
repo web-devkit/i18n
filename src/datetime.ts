@@ -99,6 +99,10 @@ export class Datetime extends I18nBase {
             return;
         }
 
+        if (!this.relative && !this.date && !this.time) {
+            console.warn("<i18n-datetime>: at least one of 'date', 'time', or 'relative' attributes is required");
+        }
+
         if (this.threshold !== undefined && !Number.isFinite(this.threshold)) {
             console.warn("<i18n-datetime>: 'threshold' must be a finite number");
         }
