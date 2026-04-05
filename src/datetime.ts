@@ -65,41 +65,26 @@ export class Datetime extends I18nBase {
     }
 
     override render() {
-        if (!this.relative && !this.date && !this.time) {
-            console.warn("<i18n-datetime>: at least one of 'date', 'time', or 'relative' attributes is required");
-            return nothing;
-        }
+        if (!this.relative && !this.date && !this.time) return nothing;
 
-        if (!this.value) {
-            this._clearTimer();
-            return nothing;
-        }
+        if (!this.value) { this._clearTimer(); return nothing; }
         const date = new Date(this.value);
-        if (isNaN(date.getTime())) {
-            this._clearTimer();
-            return nothing;
+        if (isNaN(date.getTime())) { this._clearTimer(); return nothing; }
+
+        if (!this.relative) return this._formatter?.format(date) ?? nothing;
+
+        const diffMs = date.getTime() - Date.now();
+
+        if (this._isThresholdExceeded(diffMs)) {
+            if (diffMs > 0) this._scheduleUpdate(diffMs);
+            else this._clearTimer();
+            return this._formatter?.format(date) ?? nothing;
         }
 
-        if (this.relative) {
-            const diffMs = date.getTime() - Date.now();
-            this._scheduleUpdate(diffMs);
-
-            if (this.threshold !== undefined && Math.abs(diffMs) > this.threshold * DAY) {
-                if (!this._formatter) {
-                    console.warn("<i18n-datetime>: 'threshold' requires 'date' or 'time' for absolute fallback");
-                    return nothing;
-                }
-                return this._formatter.format(date);
-            }
-
-            if (!this._relativeFormatter) return nothing;
-            const [value, unit] = bestRelativeUnit(diffMs, this.seconds);
-            return this._relativeFormatter.format(value, unit);
-        }
-
-        return this._formatter
-            ? this._formatter.format(date)
-            : nothing;
+        this._scheduleUpdate(diffMs);
+        if (!this._relativeFormatter) return nothing;
+        const [value, unit] = bestRelativeUnit(diffMs, this.seconds);
+        return this._relativeFormatter.format(value, unit);
     }
 
     override updated(_changedProperties: PropertyValues) {
@@ -108,9 +93,18 @@ export class Datetime extends I18nBase {
             !_changedProperties.has("_resolvedLocale") &&
             !_changedProperties.has("date") &&
             !_changedProperties.has("time") &&
-            !_changedProperties.has("relative")
+            !_changedProperties.has("relative") &&
+            !_changedProperties.has("threshold")
         ) {
             return;
+        }
+
+        if (this.threshold !== undefined && !Number.isFinite(this.threshold)) {
+            console.warn("<i18n-datetime>: 'threshold' must be a finite number");
+        }
+
+        if (this.threshold !== undefined && Number.isFinite(this.threshold) && !this.date && !this.time) {
+            console.warn("<i18n-datetime>: 'threshold' requires 'date' or 'time' for absolute fallback");
         }
 
         if (this.date || this.time) {
@@ -131,6 +125,10 @@ export class Datetime extends I18nBase {
             this._relativeFormatter = undefined;
             this._clearTimer();
         }
+    }
+
+    private _isThresholdExceeded(diffMs: number): boolean {
+        return Number.isFinite(this.threshold) && Math.abs(diffMs) > this.threshold! * DAY;
     }
 
     private _scheduleUpdate(diffMs: number) {
