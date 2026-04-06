@@ -244,6 +244,51 @@
         </tr>
     </table>
 
+    <h2>&lt;i18n-duration&gt;</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>1h 30m 10s (short)</td>
+            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}'></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>1h 30m 10s display="long"</td>
+            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}' display="long"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>1h 30m 10s display="narrow"</td>
+            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}' display="narrow"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>1h 30m 10s display="digital"</td>
+            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}' display="digital"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>2d 5h</td>
+            <td><i18n-duration value='{"days":2,"hours":5}'></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>45m display="long"</td>
+            <td><i18n-duration value='{"minutes":45}' display="long"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>1y 2m 3d display="long"</td>
+            <td><i18n-duration value='{"years":1,"months":2,"days":3}' display="long"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>1h 30m locale="de-DE" display="long"</td>
+            <td><i18n-duration value='{"hours":1,"minutes":30}' locale="de-DE" display="long"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>invalid JSON (should be empty)</td>
+            <td><i18n-duration value="not json"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-duration></i18n-duration></td>
+        </tr>
+    </table>
+
     <script type="module">
         const now = Date.now();
         document.getElementById("rel-10s").value = new Date(now - 10 * 1000).toISOString();
