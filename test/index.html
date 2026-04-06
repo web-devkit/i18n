@@ -148,6 +148,102 @@
         </tr>
     </table>
 
+    <h2>&lt;i18n-number&gt; — Decimal</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="1234567.89" (default)</td>
+            <td><i18n-number value="1234567.89"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="1234567.89" locale="de-DE"</td>
+            <td><i18n-number value="1234567.89" locale="de-DE"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="3.14159" max-decimals="2" (rounds to 2 places)</td>
+            <td><i18n-number value="3.14159" max-decimals="2"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="5" min-decimals="3" (pads to 3 places: 5.000)</td>
+            <td><i18n-number value="5" min-decimals="3"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="7.123456" min-decimals="2" max-decimals="4"</td>
+            <td><i18n-number value="7.123456" min-decimals="2" max-decimals="4"></i18n-number></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-number&gt; — Percent</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="0.4256" format="percent"</td>
+            <td><i18n-number value="0.4256" format="percent"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="0.05" format="percent"</td>
+            <td><i18n-number value="0.05" format="percent"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="1.5" format="percent" (150%)</td>
+            <td><i18n-number value="1.5" format="percent"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="0.33333" format="percent" max-decimals="1"</td>
+            <td><i18n-number value="0.33333" format="percent" max-decimals="1"></i18n-number></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-number&gt; — Units</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="120" unit="kilometer"</td>
+            <td><i18n-number value="120" unit="kilometer"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="120" unit="kilometer" display="long"</td>
+            <td><i18n-number value="120" unit="kilometer" display="long"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="120" unit="kilometer" display="narrow"</td>
+            <td><i18n-number value="120" unit="kilometer" display="narrow"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="3.5" unit="liter" display="long"</td>
+            <td><i18n-number value="3.5" unit="liter" display="long"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="22" unit="degree" display="narrow"</td>
+            <td><i18n-number value="22" unit="degree" display="narrow"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="500" unit="megabyte"</td>
+            <td><i18n-number value="500" unit="megabyte"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="8.5" unit="hour" display="long" locale="de-DE"</td>
+            <td><i18n-number value="8.5" unit="hour" display="long" locale="de-DE"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>value="65" unit="mile-per-hour"</td>
+            <td><i18n-number value="65" unit="mile-per-hour"></i18n-number></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-number&gt; — Edge cases</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>invalid value (should be empty)</td>
+            <td><i18n-number value="abc"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-number></i18n-number></td>
+        </tr>
+    </table>
+
     <script type="module">
         const now = Date.now();
         document.getElementById("rel-10s").value = new Date(now - 10 * 1000).toISOString();
