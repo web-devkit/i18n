@@ -353,47 +353,81 @@
         </tr>
     </table>
 
-    <h2>&lt;i18n-duration&gt;</h2>
+    <h2>&lt;i18n-duration&gt; — Go-style string</h2>
     <table>
         <tr><th>Config</th><th>Output</th></tr>
         <tr>
-            <td>1h 30m 10s (short)</td>
-            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}'></i18n-duration></td>
+            <td>value="1h30m10s"</td>
+            <td><i18n-duration value="1h30m10s"></i18n-duration></td>
         </tr>
         <tr>
-            <td>1h 30m 10s display="long"</td>
-            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}' display="long"></i18n-duration></td>
+            <td>value="1h30m10s" display="long"</td>
+            <td><i18n-duration value="1h30m10s" display="long"></i18n-duration></td>
         </tr>
         <tr>
-            <td>1h 30m 10s display="narrow"</td>
-            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}' display="narrow"></i18n-duration></td>
+            <td>value="1h30m10s" display="narrow"</td>
+            <td><i18n-duration value="1h30m10s" display="narrow"></i18n-duration></td>
         </tr>
         <tr>
-            <td>1h 30m 10s display="digital"</td>
-            <td><i18n-duration value='{"hours":1,"minutes":30,"seconds":10}' display="digital"></i18n-duration></td>
+            <td>value="1h30m10s" display="digital"</td>
+            <td><i18n-duration value="1h30m10s" display="digital"></i18n-duration></td>
         </tr>
         <tr>
-            <td>2d 5h</td>
-            <td><i18n-duration value='{"days":2,"hours":5}'></i18n-duration></td>
+            <td>value="45m"</td>
+            <td><i18n-duration value="45m"></i18n-duration></td>
         </tr>
         <tr>
-            <td>45m display="long"</td>
-            <td><i18n-duration value='{"minutes":45}' display="long"></i18n-duration></td>
+            <td>value="2h" display="long"</td>
+            <td><i18n-duration value="2h" display="long"></i18n-duration></td>
         </tr>
         <tr>
-            <td>1y 2m 3d display="long"</td>
-            <td><i18n-duration value='{"years":1,"months":2,"days":3}' display="long"></i18n-duration></td>
+            <td>value="1.5s" (1 second, 500ms)</td>
+            <td><i18n-duration value="1.5s"></i18n-duration></td>
         </tr>
         <tr>
-            <td>1h 30m locale="de-DE" display="long"</td>
-            <td><i18n-duration value='{"hours":1,"minutes":30}' locale="de-DE" display="long"></i18n-duration></td>
+            <td>value="500ms"</td>
+            <td><i18n-duration value="500ms"></i18n-duration></td>
         </tr>
         <tr>
-            <td>invalid JSON (should be empty)</td>
-            <td><i18n-duration value="not json"></i18n-duration></td>
+            <td>value="72h0m0s" locale="de-DE" display="long"</td>
+            <td><i18n-duration value="72h0m0s" locale="de-DE" display="long"></i18n-duration></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-duration&gt; — Individual attributes</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>hours="1" minutes="30" seconds="10"</td>
+            <td><i18n-duration hours="1" minutes="30" seconds="10"></i18n-duration></td>
         </tr>
         <tr>
-            <td>no value (should be empty)</td>
+            <td>days="2" hours="5" display="long"</td>
+            <td><i18n-duration days="2" hours="5" display="long"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>years="1" months="2" days="3" display="long"</td>
+            <td><i18n-duration years="1" months="2" days="3" display="long"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>weeks="2" display="long"</td>
+            <td><i18n-duration weeks="2" display="long"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>hours="1" minutes="30" locale="de-DE" display="long"</td>
+            <td><i18n-duration hours="1" minutes="30" locale="de-DE" display="long"></i18n-duration></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-duration&gt; — Edge cases</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>invalid string (should be empty)</td>
+            <td><i18n-duration value="not a duration"></i18n-duration></td>
+        </tr>
+        <tr>
+            <td>no value or attributes (should be empty)</td>
             <td><i18n-duration></i18n-duration></td>
         </tr>
     </table>
