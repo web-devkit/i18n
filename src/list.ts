@@ -13,10 +13,22 @@ export class List extends I18nBase {
     override render() {
         if (!this.value || !this._formatter) return nothing;
 
-        const items = this.value
-            .split(/(?<!\\),/)
-            .map((s) => s.trim().replace(/\\,/g, ","))
-            .filter(Boolean);
+        const items: string[] = [];
+        let current = "";
+        for (let i = 0; i < this.value.length; i++) {
+            if (this.value[i] === "\\" && this.value[i + 1] === ",") {
+                current += ",";
+                i++;
+            } else if (this.value[i] === ",") {
+                const trimmed = current.trim();
+                if (trimmed) items.push(trimmed);
+                current = "";
+            } else {
+                current += this.value[i];
+            }
+        }
+        const last = current.trim();
+        if (last) items.push(last);
 
         if (items.length === 0) return nothing;
         return this._formatter.format(items);
