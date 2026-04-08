@@ -398,6 +398,86 @@
         </tr>
     </table>
 
+    <h2>&lt;i18n-list&gt; — Conjunction</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="Apple, Banana, Cherry" (default)</td>
+            <td><i18n-list value="Apple, Banana, Cherry"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>value="Apple, Banana" (two items)</td>
+            <td><i18n-list value="Apple, Banana"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>value="Apple" (single item)</td>
+            <td><i18n-list value="Apple"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>display="short"</td>
+            <td><i18n-list value="Apple, Banana, Cherry" display="short"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>display="narrow"</td>
+            <td><i18n-list value="Apple, Banana, Cherry" display="narrow"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>locale="de-DE"</td>
+            <td><i18n-list value="Apfel, Banane, Kirsche" locale="de-DE"></i18n-list></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-list&gt; — Disjunction</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>type="disjunction" ("or")</td>
+            <td><i18n-list value="Red, Blue, Green" type="disjunction"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>type="disjunction" display="short"</td>
+            <td><i18n-list value="Red, Blue, Green" type="disjunction" display="short"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>type="disjunction" locale="de-DE"</td>
+            <td><i18n-list value="Rot, Blau, Grün" type="disjunction" locale="de-DE"></i18n-list></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-list&gt; — Unit</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>type="unit" display="long"</td>
+            <td><i18n-list value="3 feet, 7 inches" type="unit" display="long"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>type="unit" display="short"</td>
+            <td><i18n-list value="3 feet, 7 inches" type="unit" display="short"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>type="unit" display="narrow"</td>
+            <td><i18n-list value="3 feet, 7 inches" type="unit" display="narrow"></i18n-list></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-list&gt; — Edge cases</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>escaped comma: "A\, B, C" (2 items)</td>
+            <td><i18n-list value="A\, B, C"></i18n-list></td>
+        </tr>
+        <tr>
+            <td>empty value (should be empty)</td>
+            <td><i18n-list value=""></i18n-list></td>
+        </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-list></i18n-list></td>
+        </tr>
+    </table>
+
     <script type="module">
         const now = Date.now();
         document.getElementById("rel-10s").value = new Date(now - 10 * 1000).toISOString();
