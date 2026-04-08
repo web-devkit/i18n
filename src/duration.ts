@@ -12,15 +12,27 @@ function parseGoDuration(value: string): Record<string, number> | undefined {
     const duration: Record<string, number> = {};
     if (match[1]) duration.hours = parseInt(match[1]);
     if (match[2]) duration.minutes = parseInt(match[2]);
+    let seconds = 0;
+    let totalMs = 0;
+
     if (match[3]) {
         const sec = parseFloat(match[3]);
-        const wholeSec = Math.floor(sec);
-        const ms = Math.round((sec - wholeSec) * 1000);
-        if (wholeSec) duration.seconds = wholeSec;
-        if (ms) duration.milliseconds = ms;
+        seconds += Math.floor(sec);
+        totalMs += Math.round((sec - Math.floor(sec)) * 1000);
     }
-    if (match[4]) duration.milliseconds = (duration.milliseconds ?? 0) + parseInt(match[4]);
-    return duration;
+    if (match[4]) {
+        totalMs += parseInt(match[4]);
+    }
+
+    if (totalMs >= 1000) {
+        seconds += Math.floor(totalMs / 1000);
+        totalMs = totalMs % 1000;
+    }
+
+    if (seconds) duration.seconds = seconds;
+    if (totalMs) duration.milliseconds = totalMs;
+
+    return Object.keys(duration).length > 0 ? duration : undefined;
 }
 
 @customElement("i18n-duration")
@@ -77,14 +89,17 @@ export class Duration extends I18nBase {
             this.seconds !== undefined
         ) {
             const d: Record<string, number> = {};
-            if (this.years) d.years = this.years;
-            if (this.months) d.months = this.months;
-            if (this.weeks) d.weeks = this.weeks;
-            if (this.days) d.days = this.days;
-            if (this.hours) d.hours = this.hours;
-            if (this.minutes) d.minutes = this.minutes;
-            if (this.seconds) d.seconds = this.seconds;
-            return d;
+            const set = (key: string, val?: number) => {
+                if (val !== undefined && !isNaN(val)) d[key] = val;
+            };
+            set("years", this.years);
+            set("months", this.months);
+            set("weeks", this.weeks);
+            set("days", this.days);
+            set("hours", this.hours);
+            set("minutes", this.minutes);
+            set("seconds", this.seconds);
+            return Object.keys(d).length > 0 ? d : undefined;
         }
 
         if (this.value) {
