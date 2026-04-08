@@ -244,6 +244,115 @@
         </tr>
     </table>
 
+    <h2>&lt;i18n-display&gt; — Language</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="en" type="language"</td>
+            <td><i18n-display value="en" type="language"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="fr" type="language"</td>
+            <td><i18n-display value="fr" type="language"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="zh-Hans" type="language"</td>
+            <td><i18n-display value="zh-Hans" type="language"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="de" type="language" locale="de-DE"</td>
+            <td><i18n-display value="de" type="language" locale="de-DE"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="ja" type="language" display="short"</td>
+            <td><i18n-display value="ja" type="language" display="short"></i18n-display></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-display&gt; — Region</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="US" type="region"</td>
+            <td><i18n-display value="US" type="region"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="DE" type="region"</td>
+            <td><i18n-display value="DE" type="region"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="JP" type="region" locale="ja-JP"</td>
+            <td><i18n-display value="JP" type="region" locale="ja-JP"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="BR" type="region" display="short"</td>
+            <td><i18n-display value="BR" type="region" display="short"></i18n-display></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-display&gt; — Currency</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="USD" type="currency"</td>
+            <td><i18n-display value="USD" type="currency"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="EUR" type="currency"</td>
+            <td><i18n-display value="EUR" type="currency"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="JPY" type="currency" locale="ja-JP"</td>
+            <td><i18n-display value="JPY" type="currency" locale="ja-JP"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="GBP" type="currency" display="narrow"</td>
+            <td><i18n-display value="GBP" type="currency" display="narrow"></i18n-display></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-display&gt; — Script / Calendar / DateTimeField</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="Latn" type="script"</td>
+            <td><i18n-display value="Latn" type="script"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="Arab" type="script"</td>
+            <td><i18n-display value="Arab" type="script"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="gregory" type="calendar"</td>
+            <td><i18n-display value="gregory" type="calendar"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="chinese" type="calendar"</td>
+            <td><i18n-display value="chinese" type="calendar"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="month" type="dateTimeField"</td>
+            <td><i18n-display value="month" type="dateTimeField"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>value="hour" type="dateTimeField" display="narrow"</td>
+            <td><i18n-display value="hour" type="dateTimeField" display="narrow"></i18n-display></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-display&gt; — Edge cases</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>invalid value (should be empty)</td>
+            <td><i18n-display value="ZZZZZ" type="region"></i18n-display></td>
+        </tr>
+        <tr>
+            <td>no value (should be empty)</td>
+            <td><i18n-display type="language"></i18n-display></td>
+        </tr>
+    </table>
+
     <h2>&lt;i18n-duration&gt; — Go-style string</h2>
     <table>
         <tr><th>Config</th><th>Output</th></tr>
