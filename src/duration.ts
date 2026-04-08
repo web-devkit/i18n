@@ -2,10 +2,11 @@ import { nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { I18nBase } from "./base.js";
 
-const GO_DURATION_RE = /^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+(?:\.\d+)?)s)?(?:(\d+)ms)?$/;
+// Compatible with Go's time.Duration.String() output format.
+const DURATION_RE = /^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+(?:\.\d+)?)s)?(?:(\d+)ms)?$/;
 
-function parseGoDuration(value: string): Record<string, number> | undefined {
-    const match = value.match(GO_DURATION_RE);
+function parseDuration(value: string): Record<string, number> | undefined {
+    const match = value.match(DURATION_RE);
     if (!match) return undefined;
     if (!match[1] && !match[2] && !match[3] && !match[4]) return undefined;
 
@@ -103,7 +104,7 @@ export class Duration extends I18nBase {
         }
 
         if (this.value) {
-            return parseGoDuration(this.value);
+            return parseDuration(this.value);
         }
 
         return undefined;
