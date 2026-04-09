@@ -2,11 +2,9 @@ import { nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { I18nBase } from "./base.js";
 
-type DisplayNameType = "language" | "region" | "script" | "currency" | "calendar" | "dateTimeField";
-
 @customElement("i18n-display")
 export class Display extends I18nBase {
-    @property() type: DisplayNameType = "language";
+    @property() type: "language" | "region" | "script" | "currency" | "calendar" | "dateTimeField" = "language";
 
     @property() display?: "long" | "short" | "narrow";
 

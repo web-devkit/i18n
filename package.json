@@ -20,17 +20,20 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "customElements": "dist/custom-elements.json",
+  "web-types": "dist/web-types.json",
+  "files": ["dist"],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cem analyze",
     "serve": "bun test/serve.ts"
   },
   "dependencies": {
     "lit": "^3.3.2"
   },
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "custom-element-jet-brains-integration": "^1.7.0",
+    "custom-element-vs-code-integration": "^1.5.0",
     "typescript": "^6.0.2"
   }
 }
