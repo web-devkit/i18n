@@ -1,4 +1,4 @@
-import { nothing, PropertyValues } from "lit";
+import { nothing, type PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { I18nBase } from "./base.js";
 
@@ -11,8 +11,8 @@ function parseDuration(value: string): Record<string, number> | undefined {
     if (!match[1] && !match[2] && !match[3] && !match[4]) return undefined;
 
     const duration: Record<string, number> = {};
-    if (match[1]) duration.hours = parseInt(match[1]);
-    if (match[2]) duration.minutes = parseInt(match[2]);
+    if (match[1]) duration.hours = parseInt(match[1], 10);
+    if (match[2]) duration.minutes = parseInt(match[2], 10);
     let seconds = 0;
     let totalMs = 0;
 
@@ -22,7 +22,7 @@ function parseDuration(value: string): Record<string, number> | undefined {
         totalMs += Math.round((sec - Math.floor(sec)) * 1000);
     }
     if (match[4]) {
-        totalMs += parseInt(match[4]);
+        totalMs += parseInt(match[4], 10);
     }
 
     if (totalMs >= 1000) {
@@ -91,7 +91,7 @@ export class Duration extends I18nBase {
         ) {
             const d: Record<string, number> = {};
             const set = (key: string, val?: number) => {
-                if (val !== undefined && !isNaN(val)) d[key] = val;
+                if (val !== undefined && !Number.isNaN(val)) d[key] = val;
             };
             set("years", this.years);
             set("months", this.months);

@@ -1,4 +1,4 @@
-import { nothing, PropertyValues } from "lit";
+import { nothing, type PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { I18nBase } from "./base.js";
 
@@ -17,7 +17,7 @@ export class Currency extends I18nBase {
         }
         if (!this.value || !this._formatter) return nothing;
         const num = parseFloat(this.value);
-        if (isNaN(num)) return nothing;
+        if (Number.isNaN(num)) return nothing;
         return this._formatter.format(num);
     }
 

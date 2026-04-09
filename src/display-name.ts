@@ -1,4 +1,4 @@
-import { nothing, PropertyValues } from "lit";
+import { nothing, type PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { I18nBase } from "./base.js";
 
