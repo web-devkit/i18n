@@ -2,9 +2,6 @@ import { nothing, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { I18nBase } from "./base.js";
 
-type DateTimeStyle = "full" | "long" | "medium" | "short";
-type RelativeStyle = "long" | "short" | "narrow";
-
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
@@ -41,11 +38,11 @@ function autoUpdateInterval(diffMs: number, seconds: boolean): number {
 
 @customElement("i18n-datetime")
 export class Datetime extends I18nBase {
-    @property() date?: DateTimeStyle;
+    @property() date?: "full" | "long" | "medium" | "short";
 
-    @property() time?: DateTimeStyle;
+    @property() time?: "full" | "long" | "medium" | "short";
 
-    @property() relative?: RelativeStyle;
+    @property() relative?: "long" | "short" | "narrow";
 
     @property({ type: Number }) threshold?: number;
 
