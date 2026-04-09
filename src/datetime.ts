@@ -129,7 +129,7 @@ export class Datetime extends I18nBase {
     }
 
     private _isThresholdExceeded(diffMs: number): boolean {
-        return Number.isFinite(this.threshold) && Math.abs(diffMs) > this.threshold! * DAY;
+        return Number.isFinite(this.threshold) && Math.abs(diffMs) > (this.threshold as number) * DAY;
     }
 
     private _scheduleUpdate(diffMs: number) {
