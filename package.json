@@ -1,6 +1,6 @@
 {
-  "name": "@web-devkit/i18n",
-  "version": "0.0.1",
+  "name": "@webdk/i18n",
+  "version": "0.0.0",
   "description": "Custom web components to format values based on the browser's language.",
   "license": "MIT",
   "repository": {
