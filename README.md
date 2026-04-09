@@ -1,4 +1,4 @@
-# @web-devkit/i18n
+# @webdk/i18n
 
 Lit-based web components that format values using the browser's `Intl` API. All components render into the light DOM and automatically react to locale changes.
 
@@ -7,7 +7,7 @@ Lit-based web components that format values using the browser's `Intl` API. All 
 ### Installation
 
 ```bash
-npm install @web-devkit/i18n
+npm install @webdk/i18n
 ```
 
 ### Usage
@@ -15,7 +15,7 @@ npm install @web-devkit/i18n
 Import the components you need:
 
 ```js
-import "@web-devkit/i18n";
+import "@webdk/i18n";
 ```
 
 Then use them in your HTML:
