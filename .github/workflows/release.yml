@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: oven-sh/setup-bun@v2
+
+      - id: version
+        name: Get Release Version
+        run: echo "tag=${GITHUB_REF#refs/*/v}" >> $GITHUB_OUTPUT
+
+      - run: bun install --frozen-lockfile
+      - run: npm version ${{ steps.version.outputs.tag }} --no-git-tag-version
+      - run: bun run build
+
+      - uses: actions/setup-node@v6
+        with:
+          registry-url: https://registry.npmjs.org
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
