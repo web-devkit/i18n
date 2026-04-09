@@ -25,12 +25,17 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsc && cem analyze",
+    "format": "biome format --write",
+    "lint": "biome lint",
+    "lint-write": "biome lint --write",
+    "check": "biome check --write",
     "serve": "bun test/serve.ts"
   },
   "dependencies": {
     "lit": "^3.3.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.11",
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "custom-element-jet-brains-integration": "^1.7.0",
     "custom-element-vs-code-integration": "^1.5.0",
