@@ -14,9 +14,19 @@ jobs:
 
       - run: bun install --frozen-lockfile
       - run: bun run build
+
+  lint:
+    if: github.event.pull_request.head.repo.fork == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
       - run: bunx biome check
 
-  commit-generated:
+  autofix:
     if: github.event.pull_request.head.repo.fork == false
     runs-on: ubuntu-latest
     permissions:
@@ -30,9 +40,9 @@ jobs:
 
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - run: bunx biome check --write
+      - run: bunx biome check --write --unsafe
 
       - uses: EndBug/add-and-commit@v10
         with:
           default_author: github_actions
-          message: "chore: update generated files"
+          message: "chore: apply formatting and generated files"
