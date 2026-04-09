@@ -1,4 +1,4 @@
-import { LitElement, PropertyValues } from "lit";
+import { LitElement, type PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
 import { onLocaleChange, resolveLocale } from "./locale.js";
 

@@ -7,7 +7,7 @@ let observer: MutationObserver | undefined;
 function ensureObserver() {
     if (observer) return;
     observer = new MutationObserver(() => {
-        listeners.forEach((cb) => cb());
+        for (const cb of listeners) cb();
     });
     observer.observe(document.documentElement, {
         attributes: true,

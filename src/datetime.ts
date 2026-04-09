@@ -1,4 +1,4 @@
-import { nothing, PropertyValues } from "lit";
+import { nothing, type PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { I18nBase } from "./base.js";
 
@@ -64,9 +64,15 @@ export class Datetime extends I18nBase {
     override render() {
         if (!this.relative && !this.date && !this.time) return nothing;
 
-        if (!this.value) { this._clearTimer(); return nothing; }
+        if (!this.value) {
+            this._clearTimer();
+            return nothing;
+        }
         const date = new Date(this.value);
-        if (isNaN(date.getTime())) { this._clearTimer(); return nothing; }
+        if (Number.isNaN(date.getTime())) {
+            this._clearTimer();
+            return nothing;
+        }
 
         if (!this.relative) return this._formatter?.format(date) ?? nothing;
 
@@ -129,7 +135,7 @@ export class Datetime extends I18nBase {
     }
 
     private _isThresholdExceeded(diffMs: number): boolean {
-        return Number.isFinite(this.threshold) && Math.abs(diffMs) > this.threshold! * DAY;
+        return Number.isFinite(this.threshold) && Math.abs(diffMs) > (this.threshold as number) * DAY;
     }
 
     private _scheduleUpdate(diffMs: number) {
