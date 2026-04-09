@@ -24,8 +24,7 @@
   "web-types": "dist/web-types.json",
   "files": ["dist"],
   "scripts": {
-    "build": "tsc",
-    "analyze": "cem analyze",
+    "build": "tsc && cem analyze",
     "serve": "bun test/serve.ts"
   },
   "dependencies": {
