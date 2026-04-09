@@ -1,5 +1,5 @@
 {
-  "name": "webdk/i18n",
+  "name": "@webdk/i18n",
   "version": "0.0.0",
   "description": "Custom web components to format values based on the browser's language.",
   "license": "MIT",
