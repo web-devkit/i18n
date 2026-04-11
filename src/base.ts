@@ -12,6 +12,15 @@ export abstract class I18nBase extends LitElement {
     private _unsubscribe?: () => void;
 
     override createRenderRoot() {
+        // Wipe any children that may have been restored from an htmx
+        // history snapshot or browser bfcache. Without this, Lit's
+        // ChildPart (stored as a JS property, not serialized) is gone
+        // on restore, so Lit appends fresh output next to the stale
+        // rendered text instead of replacing it.
+        // NOTE: this means these components cannot host meaningful
+        // light-DOM children (e.g. slot-like content) — anything
+        // placed inside will be removed before first render.
+        this.replaceChildren();
         return this;
     }
 
