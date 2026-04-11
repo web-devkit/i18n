@@ -495,6 +495,101 @@
         </tr>
     </table>
 
+    <h2>Range formatting</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>currency from="3" to="5" USD</td>
+            <td><i18n-currency from="3" to="5" currency="USD"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>currency from="100" to="9999" EUR locale="de-DE"</td>
+            <td><i18n-currency from="100" to="9999" currency="EUR" locale="de-DE"></i18n-currency></td>
+        </tr>
+        <tr>
+            <td>number from="3" to="5" unit="kilometer"</td>
+            <td><i18n-number from="3" to="5" unit="kilometer"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>number from="0.1" to="0.5" format="percent"</td>
+            <td><i18n-number from="0.1" to="0.5" format="percent"></i18n-number></td>
+        </tr>
+        <tr>
+            <td>datetime from="2026-01-01" to="2026-01-05" date="medium"</td>
+            <td><i18n-datetime from="2026-01-01" to="2026-01-05" date="medium"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>datetime same day, time range</td>
+            <td><i18n-datetime from="2026-01-01T09:00:00Z" to="2026-01-01T11:00:00Z" date="medium" time="short"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>datetime cross-year</td>
+            <td><i18n-datetime from="2025-12-28" to="2026-01-05" date="long"></i18n-datetime></td>
+        </tr>
+        <tr>
+            <td>datetime locale="ja-JP"</td>
+            <td><i18n-datetime from="2026-01-01" to="2026-01-05" date="long" locale="ja-JP"></i18n-datetime></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-plural&gt;</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>value="0" one/other</td>
+            <td><i18n-plural value="0" one="{{count}} item" other="{{count}} items"></i18n-plural></td>
+        </tr>
+        <tr>
+            <td>value="1" one/other</td>
+            <td><i18n-plural value="1" one="{{count}} item" other="{{count}} items"></i18n-plural></td>
+        </tr>
+        <tr>
+            <td>value="42" one/other</td>
+            <td><i18n-plural value="42" one="{{count}} item" other="{{count}} items"></i18n-plural></td>
+        </tr>
+        <tr>
+            <td>locale="pl-PL" value="3" (Polish has more forms)</td>
+            <td><i18n-plural value="3" locale="pl-PL" one="{{count}} element" few="{{count}} elementy" many="{{count}} elementów" other="{{count}} elementu"></i18n-plural></td>
+        </tr>
+        <tr>
+            <td>type="ordinal" value="1"</td>
+            <td><i18n-plural type="ordinal" value="1" one="{{count}}st" two="{{count}}nd" few="{{count}}rd" other="{{count}}th"></i18n-plural></td>
+        </tr>
+        <tr>
+            <td>type="ordinal" value="2"</td>
+            <td><i18n-plural type="ordinal" value="2" one="{{count}}st" two="{{count}}nd" few="{{count}}rd" other="{{count}}th"></i18n-plural></td>
+        </tr>
+        <tr>
+            <td>type="ordinal" value="3"</td>
+            <td><i18n-plural type="ordinal" value="3" one="{{count}}st" two="{{count}}nd" few="{{count}}rd" other="{{count}}th"></i18n-plural></td>
+        </tr>
+        <tr>
+            <td>type="ordinal" value="11"</td>
+            <td><i18n-plural type="ordinal" value="11" one="{{count}}st" two="{{count}}nd" few="{{count}}rd" other="{{count}}th"></i18n-plural></td>
+        </tr>
+    </table>
+
+    <h2>&lt;i18n-segment&gt;</h2>
+    <table>
+        <tr><th>Config</th><th>Output</th></tr>
+        <tr>
+            <td>granularity="word" value="Hello, world!"</td>
+            <td><i18n-segment value="Hello, world!"></i18n-segment></td>
+        </tr>
+        <tr>
+            <td>granularity="sentence"</td>
+            <td><i18n-segment granularity="sentence" value="Hello! How are you? I am fine."></i18n-segment></td>
+        </tr>
+        <tr>
+            <td>granularity="grapheme" value="👨‍👩‍👧"</td>
+            <td><i18n-segment granularity="grapheme" value="👨‍👩‍👧"></i18n-segment></td>
+        </tr>
+        <tr>
+            <td>locale="ja-JP" value="今日は良い天気です。"</td>
+            <td><i18n-segment locale="ja-JP" value="今日は良い天気です。"></i18n-segment></td>
+        </tr>
+    </table>
+
     <h2>&lt;i18n-list&gt; — Edge cases</h2>
     <table>
         <tr><th>Config</th><th>Output</th></tr>
