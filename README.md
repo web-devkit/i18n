@@ -42,6 +42,10 @@ Then use them in your HTML:
 <i18n-currency value="1234.50" currency="USD"></i18n-currency>
 ```
 
+### Light DOM & Inner Content
+
+All components render into the light DOM (no Shadow DOM). On first render, any existing children inside the element are removed — do not place content inside these components.
+
 ### Locale Resolution
 
 All components resolve the locale in this order:
