@@ -1,14 +1,23 @@
-<h1 align="center">@webdk/i18n</h1>
+<br>
 
-<p align="center">Lit-based web components that format values using the browser's <code>Intl</code> API.</p>
+<div align="center">
+    <!-- https://danmarshall.github.io/google-font-to-svg-path/ -->
+    <!-- Font: Afacad Flux, Fill: #4e84f5, Stroke: #203b84, Text: @webdk/i18n -->
+    <img src=".github/logo.svg" alt="@webdk/i18n" width="200"/><br>
+    <p>Lit-based web components that format values using the browser's <code>Intl</code> API.</p>
+</div>
 
----
+<hr />
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@webdk/i18n"><img src="https://img.shields.io/npm/v/%40webdk%2Fi18n?style=flat&logo=npm" alt="npm version"></a>
-  <a href="https://www.npmjs.com/package/@webdk/i18n"><img src="https://img.shields.io/npm/dm/%40webdk%2Fi18n?style=flat&logo=npm" alt="npm downloads"></a>
-  <a href="https://bundlejs.com/?q=%40webdk%2Fi18n"><img src="https://img.shields.io/bundlejs/size/%40webdk%2Fi18n?style=flat&label=bundle&logo=package" alt="bundle size"></a>
-  <a href="https://github.com/web-devkit/i18n/blob/main/LICENSE"><img src="https://img.shields.io/github/license/web-devkit/i18n?style=flat" alt="license"></a>
+    <a href="https://www.npmjs.com/package/@webdk/i18n"><img src="https://img.shields.io/npm/v/%40webdk%2Fi18n?style=flat&logo=npm" alt="npm version"></a>
+    &nbsp;
+    <a href="https://www.npmjs.com/package/@webdk/i18n"><img src="https://img.shields.io/npm/dm/%40webdk%2Fi18n?style=flat&logo=npm" alt="npm downloads"></a>
+    &nbsp;
+    <a href="https://bundlephobia.com/package/@webdk/i18n"><img src="https://img.shields.io/bundlephobia/minzip/%40webdk%2Fi18n?style=flat&label=bundle&logo=package" alt="bundle size"></a>
+    &nbsp;
+    <a href="https://github.com/web-devkit/i18n/blob/main/LICENSE"><img src="https://img.shields.io/github/license/web-devkit/i18n?style=flat" alt="license"></a>
+    &nbsp;
 </p>
 
 ## Getting Started
