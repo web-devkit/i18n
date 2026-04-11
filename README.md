@@ -2,7 +2,7 @@
 
 <div align="center">
     <!-- https://danmarshall.github.io/google-font-to-svg-path/ -->
-    <!-- Font: Afacad Flux, Fill: #4e84f5, Stroke: #203b84, Text: @webdk/i18n -->
+    <!-- Font: Afacad Flux, Fill: #4e84f5, Stroke: none, Text: @webdk/i18n -->
     <img src=".github/logo.svg" alt="@webdk/i18n" width="300"/><br>
     <p>Lit-based web components that format values using the browser's <code>Intl</code> API.</p>
 </div>
