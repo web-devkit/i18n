@@ -1,6 +1,24 @@
-# @webdk/i18n
+<br>
 
-Lit-based web components that format values using the browser's `Intl` API. All components render into the light DOM and automatically react to locale changes.
+<div align="center">
+    <!-- https://danmarshall.github.io/google-font-to-svg-path/ -->
+    <!-- Font: Afacad Flux, Fill: #4e84f5, Stroke: none, Text: @webdk/i18n -->
+    <img src=".github/logo.svg" alt="@webdk/i18n" width="300"/><br>
+    <p>Lit-based web components that format values using the browser's <code>Intl</code> API.</p>
+</div>
+
+<hr />
+
+<p align="center">
+    <a href="https://www.npmjs.com/package/@webdk/i18n"><img src="https://img.shields.io/npm/v/%40webdk%2Fi18n?style=flat&logo=npm" alt="npm version"></a>
+    &nbsp;
+    <a href="https://www.npmjs.com/package/@webdk/i18n"><img src="https://img.shields.io/npm/dm/%40webdk%2Fi18n?style=flat&logo=npm" alt="npm downloads"></a>
+    &nbsp;
+    <a href="https://bundlephobia.com/package/@webdk/i18n"><img src="https://img.shields.io/bundlephobia/minzip/%40webdk%2Fi18n?style=flat&label=bundle&logo=package" alt="bundle size"></a>
+    &nbsp;
+    <a href="https://github.com/web-devkit/i18n/blob/main/LICENSE"><img src="https://img.shields.io/github/license/web-devkit/i18n?style=flat" alt="license"></a>
+    &nbsp;
+</p>
 
 ## Getting Started
 
@@ -23,6 +41,10 @@ Then use them in your HTML:
 ```html
 <i18n-currency value="1234.50" currency="USD"></i18n-currency>
 ```
+
+### Light DOM & Inner Content
+
+All components render into the light DOM (no Shadow DOM). On first render, any existing children inside the element are removed — do not place content inside these components.
 
 ### Locale Resolution
 
