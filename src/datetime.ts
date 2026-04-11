@@ -110,13 +110,19 @@ export class Datetime extends I18nBase {
             !_changedProperties.has("date") &&
             !_changedProperties.has("time") &&
             !_changedProperties.has("relative") &&
-            !_changedProperties.has("threshold")
+            !_changedProperties.has("threshold") &&
+            !_changedProperties.has("from") &&
+            !_changedProperties.has("to")
         ) {
             return;
         }
 
         if (!this.relative && !this.date && !this.time) {
             console.warn("<i18n-datetime>: at least one of 'date', 'time', or 'relative' attributes is required");
+        }
+
+        if (this.from !== undefined && this.to !== undefined && !this.date && !this.time) {
+            console.warn("<i18n-datetime>: 'from'/'to' requires 'date' or 'time' for range formatting");
         }
 
         if (this.threshold !== undefined && !Number.isFinite(this.threshold)) {
