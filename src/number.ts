@@ -14,11 +14,24 @@ export class NumberFormat extends I18nBase {
 
     @property({ attribute: "max-decimals", type: Number }) maxDecimals?: number;
 
+    @property() from?: string;
+
+    @property() to?: string;
+
     @state() private _formatter?: Intl.NumberFormat;
 
     override render() {
-        if (!this.value || !this._formatter) return nothing;
-        const num = parseFloat(this.value);
+        if (!this._formatter) return nothing;
+
+        if (this.from !== undefined && this.to !== undefined) {
+            const start = Number.parseFloat(this.from);
+            const end = Number.parseFloat(this.to);
+            if (Number.isNaN(start) || Number.isNaN(end)) return nothing;
+            return this._formatter.formatRange(start, end);
+        }
+
+        if (!this.value) return nothing;
+        const num = Number.parseFloat(this.value);
         if (Number.isNaN(num)) return nothing;
         return this._formatter.format(num);
     }
