@@ -48,6 +48,10 @@ export class Datetime extends I18nBase {
 
     @property({ type: Boolean }) seconds = false;
 
+    @property() from?: string;
+
+    @property() to?: string;
+
     @state() private _formatter?: Intl.DateTimeFormat;
 
     @state() private _relativeFormatter?: Intl.RelativeTimeFormat;
@@ -63,6 +67,15 @@ export class Datetime extends I18nBase {
 
     override render() {
         if (!this.relative && !this.date && !this.time) return nothing;
+
+        if (this.from !== undefined && this.to !== undefined) {
+            this._clearTimer();
+            if (!this._formatter) return nothing;
+            const start = new Date(this.from);
+            const end = new Date(this.to);
+            if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return nothing;
+            return this._formatter.formatRange(start, end);
+        }
 
         if (!this.value) {
             this._clearTimer();
@@ -97,13 +110,19 @@ export class Datetime extends I18nBase {
             !_changedProperties.has("date") &&
             !_changedProperties.has("time") &&
             !_changedProperties.has("relative") &&
-            !_changedProperties.has("threshold")
+            !_changedProperties.has("threshold") &&
+            !_changedProperties.has("from") &&
+            !_changedProperties.has("to")
         ) {
             return;
         }
 
         if (!this.relative && !this.date && !this.time) {
             console.warn("<i18n-datetime>: at least one of 'date', 'time', or 'relative' attributes is required");
+        }
+
+        if (this.from !== undefined && this.to !== undefined && !this.date && !this.time) {
+            console.warn("<i18n-datetime>: 'from'/'to' requires 'date' or 'time' for range formatting");
         }
 
         if (this.threshold !== undefined && !Number.isFinite(this.threshold)) {
