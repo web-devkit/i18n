@@ -67,7 +67,11 @@ Formats a numeric value as a currency string using `Intl.NumberFormat`.
 | `value`    | `string`                                          | no       | Numeric amount           |
 | `currency` | `string`                                          | yes      | ISO 4217 code            |
 | `display`  | `"symbol"` `"narrowSymbol"` `"code"` `"name"`     | no       | How the currency is shown |
+| `from`     | `string`                                          | no       | Start of a range (used with `to`) |
+| `to`       | `string`                                          | no       | End of a range (used with `from`) |
 | `locale`   | `string`                                          | no       | Override locale          |
+
+When both `from` and `to` are set, the component formats them as a single locale-aware range and ignores `value`.
 
 ```html
 <i18n-currency value="1234.5" currency="USD"></i18n-currency>
@@ -78,6 +82,9 @@ Formats a numeric value as a currency string using `Intl.NumberFormat`.
 
 <i18n-currency value="5000" currency="JPY" locale="ja-JP"></i18n-currency>
 <!-- ￥5,000 -->
+
+<i18n-currency from="3" to="5" currency="USD"></i18n-currency>
+<!-- $3.00 – $5.00 -->
 ```
 
 ### `<i18n-number>`
@@ -92,7 +99,11 @@ Formats a numeric value using `Intl.NumberFormat`. Supports decimal, percent, an
 | `display`      | `"long"` `"short"` `"narrow"`     | no       | Unit display style       |
 | `min-decimals` | `number`                          | no       | Minimum fraction digits  |
 | `max-decimals` | `number`                          | no       | Maximum fraction digits  |
+| `from`         | `string`                          | no       | Start of a range (used with `to`) |
+| `to`           | `string`                          | no       | End of a range (used with `from`) |
 | `locale`       | `string`                          | no       | Override locale          |
+
+When both `from` and `to` are set, the component formats them as a single locale-aware range and ignores `value`.
 
 ```html
 <i18n-number value="1234567.89"></i18n-number>
@@ -106,6 +117,9 @@ Formats a numeric value using `Intl.NumberFormat`. Supports decimal, percent, an
 
 <i18n-number value="3.14159" max-decimals="2"></i18n-number>
 <!-- 3.14 -->
+
+<i18n-number from="3" to="5" unit="kilometer"></i18n-number>
+<!-- 3–5 km -->
 ```
 
 ### `<i18n-datetime>`
@@ -120,11 +134,15 @@ Formats a date/time value using `Intl.DateTimeFormat`. Optionally shows relative
 | `relative`  | `"long"` `"short"` `"narrow"`                 | no       | Relative time style      |
 | `threshold` | `number`                                      | no       | Days before switching from relative to absolute |
 | `seconds`   | `boolean`                                     | no       | Include seconds in relative output |
+| `from`      | `string`                                      | no       | Start of a range (used with `to`) |
+| `to`        | `string`                                      | no       | End of a range (used with `from`) |
 | `locale`    | `string`                                      | no       | Override locale          |
 
 At least one of `date`, `time`, or `relative` must be set.
 
 Relative times auto-update at appropriate intervals (every second, minute, or hour depending on the time difference).
+
+When both `from` and `to` are set, the component formats them as a single locale-aware range using `Intl.DateTimeFormat.formatRange()` and ignores `value`. Range mode only applies in absolute formatting (with `date` and/or `time`); the `relative` mode does not support ranges.
 
 ```html
 <i18n-datetime value="2026-04-04T14:30:00Z" date="long"></i18n-datetime>
@@ -138,6 +156,9 @@ Relative times auto-update at appropriate intervals (every second, minute, or ho
 
 <i18n-datetime relative="long" threshold="30" date="medium" value="2025-01-01T00:00:00Z"></i18n-datetime>
 <!-- Falls back to absolute format after 30 days -->
+
+<i18n-datetime from="2026-01-01" to="2026-01-05" date="medium"></i18n-datetime>
+<!-- Jan 1 – 5, 2026 -->
 ```
 
 ### `<i18n-duration>`
@@ -219,6 +240,68 @@ Displays the localized name of a language, region, currency, script, calendar, o
 <i18n-display value="USD" type="currency"></i18n-display>
 <!-- US Dollar -->
 ```
+
+### `<i18n-plural>`
+
+Selects the correct plural form for a count using `Intl.PluralRules`. Use `{{count}}` in any form to interpolate the count value.
+
+| Attribute | Type                          | Required | Description              |
+| --------- | ----------------------------- | -------- | ------------------------ |
+| `value`   | `string`                      | no       | The count                |
+| `type`    | `"cardinal"` `"ordinal"`      | no       | Plural type (default: `"cardinal"`) |
+| `zero`    | `string`                      | no       | Form for the `zero` category |
+| `one`     | `string`                      | no       | Form for the `one` category |
+| `two`     | `string`                      | no       | Form for the `two` category |
+| `few`     | `string`                      | no       | Form for the `few` category |
+| `many`    | `string`                      | no       | Form for the `many` category |
+| `other`   | `string`                      | no       | Form for the `other` category — used as fallback when the selected category is unset |
+| `locale`  | `string`                      | no       | Override locale          |
+
+Plural categories vary by language: English uses `one` and `other`; Arabic uses all six. Always provide `other` as a fallback.
+
+```html
+<i18n-plural value="1" one="{{count}} item" other="{{count}} items"></i18n-plural>
+<!-- 1 item -->
+
+<i18n-plural value="5" one="{{count}} item" other="{{count}} items"></i18n-plural>
+<!-- 5 items -->
+
+<i18n-plural value="3" type="ordinal" one="{{count}}st" two="{{count}}nd" few="{{count}}rd" other="{{count}}th"></i18n-plural>
+<!-- 3rd -->
+```
+
+### `<i18n-segment>`
+
+Splits text into locale-aware segments (graphemes, words, or sentences) using `Intl.Segmenter`. Each segment is rendered as a `<span>` with `data-segment-index` and `data-is-word-like` attributes for styling and filtering.
+
+| Attribute     | Type                                  | Required | Description              |
+| ------------- | ------------------------------------- | -------- | ------------------------ |
+| `value`       | `string`                              | no       | Text to segment          |
+| `granularity` | `"grapheme"` `"word"` `"sentence"`    | no       | Segmentation level (default: `"word"`) |
+| `locale`      | `string`                              | no       | Override locale          |
+
+```html
+<i18n-segment value="Hello, world!" granularity="word"></i18n-segment>
+<!-- <span>Hello</span><span>,</span><span> </span><span>world</span><span>!</span> -->
+
+<i18n-segment value="今日は良い天気です。" granularity="word" locale="ja-JP"></i18n-segment>
+<!-- Splits Japanese text on word boundaries -->
+```
+
+Combine with CSS to highlight only word-like segments:
+
+```css
+i18n-segment span[data-is-word-like="true"] {
+    background: yellow;
+}
+```
+
+## Not Included
+
+The following `Intl` APIs are intentionally not exposed as components, because they don't map to a rendering concern:
+
+- **`Intl.Collator`** — used for locale-aware string comparison and sorting. This is a JavaScript operation on data, not something you render. Use it directly in your code: `new Intl.Collator(locale).compare(a, b)`.
+- **`Intl.Locale`** — a utility for parsing and manipulating locale identifiers. There is nothing to render. Use it directly when you need to inspect or transform locale tags.
 
 ## License
 
